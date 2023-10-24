@@ -1,9 +1,9 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
 
-function LostBanner({ answer }) {
+function LostBanner({ answer, buttonAction }) {
   return (
-    <Banner variant="sad">
+    <Banner variant="sad" buttonAction={buttonAction}>
       <p>
         Sorry, the correct answer is <strong>{answer}</strong>.
       </p>
