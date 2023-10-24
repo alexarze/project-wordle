@@ -5,7 +5,8 @@ import { WORDS } from '../../data';
 import { checkGuess } from '../../game-helpers';
 import Guesser from '../Guesser/Guesser';
 import GuessResults from '../GuessResults/GuessResults';
-import EndGameBanner from '../EndGameBanner/EndGameBanner';
+import WonBanner from '../WonBanner/WonBanner';
+import LostBanner from '../LostBanner/LostBanner';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
 // Pick a random word on every pageload.
@@ -15,32 +16,30 @@ console.info({ answer });
 
 function Game() {
   const [guessList, setGuessList] = React.useState([]);
-  const [hasWon, setHasWon] = React.useState(false);
-
-  const gameActive = !hasWon && guessList.length < NUM_OF_GUESSES_ALLOWED;
+  const [gameState, setGameState] = React.useState(0); // 0 = ongoing, 1 = won, -1 = lost
 
   function addGuess(guess) {
     const newGuessObj = {
       value: guess,
-      key: crypto.randomUUID(),
       checks: checkGuess(guess, answer),
     };
-    setGuessList([...guessList, newGuessObj]);
+    const newGuessList = [...guessList, newGuessObj];
+    setGuessList(newGuessList);
 
     // Handle winning
-    if (guess === answer) setHasWon(true);
+    if (guess === answer) {
+      setGameState(1);
+    } else if (newGuessList.length >= NUM_OF_GUESSES_ALLOWED) {
+      setGameState(-1);
+    }
   }
 
   return (
     <div className="guess-wrapper">
       <GuessResults guessList={guessList} />
-      <Guesser addGuess={addGuess} active={gameActive} />
-      <EndGameBanner
-        hidden={gameActive}
-        variant={hasWon ? 'happy' : 'sad'}
-        numGuesses={guessList.length}
-        answer={answer}
-      />
+      <Guesser addGuess={addGuess} active={gameState === 0} />
+      {gameState === 1 && <WonBanner numGuesses={guessList.length} />}
+      {gameState === -1 && <LostBanner answer={answer} />}
     </div>
   );
 }

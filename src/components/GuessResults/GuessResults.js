@@ -6,11 +6,9 @@ import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 function GuessResults({ guessList }) {
   return (
     <div className="guess-results">
-      {range(0, NUM_OF_GUESSES_ALLOWED).map((i) => {
+      {range(NUM_OF_GUESSES_ALLOWED).map((i) => {
         const guess = guessList[i];
-        return (
-          <Guess key={i} checks={guess ? guess.checks : null} guess={guess} />
-        );
+        return <Guess key={i} checks={guess ? guess.checks : null} />;
       })}
     </div>
   );
