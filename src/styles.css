@@ -185,6 +185,51 @@ h1 {
   color: white;
 }
 
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.keyboard-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.keyboard-key {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  border: 1px solid grey;
+  /* padding: 0.75rem 0rem; */
+  border-radius: 0.5rem;
+  min-width: 2rem;
+  height: 2.5rem;
+  text-align: center;
+  margin: 0.25rem;
+  font-weight: 600;
+  background-color: lightgrey;
+}
+
+.keyboard-key.correct {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+.keyboard-key.incorrect {
+  background: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+  color: white;
+}
+.keyboard-key.misplaced {
+  background: var(--color-warning);
+  border-color: var(--color-warning);
+  color: white;
+}
+
 .visually-hidden {
   position: absolute;
   overflow: hidden;

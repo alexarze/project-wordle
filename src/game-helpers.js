@@ -53,3 +53,23 @@ export function checkGuess(guess, answer) {
 
   return result;
 }
+
+export function statusToState(status) {
+  if (status === 'incorrect') {
+    return -1;
+  } else if (status === 'misplaced') {
+    return 0;
+  } else if (status === 'correct') {
+    return 1;
+  }
+}
+
+export function stateToStatus(state) {
+  if (state === -1) {
+    return 'incorrect';
+  } else if (state === 0) {
+    return 'misplaced';
+  } else if (state === 1) {
+    return 'correct';
+  }
+}
